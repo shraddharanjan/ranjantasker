@@ -7,6 +7,11 @@ import com.shraddha.ranjantasker.repository.RequesterAccountRepository;
 import com.shraddha.ranjantasker.repository.TaskSeekerAccountRepository;
 import com.shraddha.ranjantasker.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -46,5 +51,22 @@ public class UsersService {
 
     public Optional<Users> getUserByEmail(String email) {
         return usersRepository.findByEmail(email);
+    }
+
+    public Object getCurrentUserProfile() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)){
+            String username = authentication.getName();
+            Users users = usersRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("Could not find " + "user"));
+            int userId = users.getUserId();
+            if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("Requester"))) {
+                RequesterAccount requesterAccount = requesterAccountRepository.findById(userId).orElse(new RequesterAccount());
+                return requesterAccount;
+            } else {
+                TaskSeekerAccount taskSeekerAccount = taskSeekerAccountRepository.findById(userId).orElse(new TaskSeekerAccount());
+                return taskSeekerAccount;
+            }
+        }
+        return null;
     }
 }
