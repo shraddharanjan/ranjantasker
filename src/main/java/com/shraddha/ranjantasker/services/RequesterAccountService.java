@@ -19,4 +19,8 @@ public class RequesterAccountService {
     public Optional<RequesterAccount> getOne(Integer id) {
         return requesterAccountRepository.findById(id);
     }
+
+    public RequesterAccount addNew(RequesterAccount requesterAccount) {
+        return requesterAccountRepository.save(requesterAccount);
+    }
 }
