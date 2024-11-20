@@ -95,6 +95,12 @@ public class RequesterAccount {
         this.profilePhoto = profilePhoto;
     }
 
+    @Transient
+    public String getPhotosImagePath(){
+        if(profilePhoto == null) return null;
+        return "/photos/requester/" + userAccountId + "/" + profilePhoto;
+    }
+
     @Override
     public String toString() {
         return "RequesterAccount{" +
