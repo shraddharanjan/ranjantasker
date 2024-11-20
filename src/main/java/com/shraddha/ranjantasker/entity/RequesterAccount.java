@@ -35,6 +35,10 @@ public class RequesterAccount {
         this.profilePhoto = profilePhoto;
     }
 
+    public RequesterAccount(Users users) {
+        this.userId = users;
+    }
+
     public int getUserAccountId() {
         return userAccountId;
     }
