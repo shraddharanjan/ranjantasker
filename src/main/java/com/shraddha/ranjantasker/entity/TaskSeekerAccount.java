@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class TaskSeekerAccount {
 
     @Id
-    private int userAccountId;
+    private Integer userAccountId;
 
     @OneToOne
     @JoinColumn(name = "user_account_id")
@@ -43,11 +43,11 @@ public class TaskSeekerAccount {
         this.profilePhoto = profilePhoto;
     }
 
-    public int getUserAccountId() {
+    public Integer getUserAccountId() {
         return userAccountId;
     }
 
-    public void setUserAccountId(int userAccountId) {
+    public void setUserAccountId(Integer userAccountId) {
         this.userAccountId = userAccountId;
     }
 
@@ -115,6 +115,12 @@ public class TaskSeekerAccount {
         this.profilePhoto = profilePhoto;
     }
 
+    @Transient
+    public String getPhotosImagePath(){
+        if(profilePhoto==null || userAccountId == null)
+            return null;
+        return "/photos/candidate/" + userAccountId + "/" + profilePhoto;
+    }
     @Override
     public String toString() {
         return "TaskSeekerAccount{" +

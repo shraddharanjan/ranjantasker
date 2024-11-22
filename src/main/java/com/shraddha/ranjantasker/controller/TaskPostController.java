@@ -76,6 +76,6 @@ public class TaskPostController {
         model.addAttribute("taskPost", taskPost);
 
         model.addAttribute("user", usersService.getCurrentUserProfile());
-        return "add-tasks"; 
+        return "add-tasks";
     }
 }
