@@ -1,5 +1,7 @@
 package com.shraddha.ranjantasker.controller;
 
+import com.shraddha.ranjantasker.entity.RequesterAccount;
+import com.shraddha.ranjantasker.entity.RequesterTasksDto;
 import com.shraddha.ranjantasker.entity.TaskPost;
 import com.shraddha.ranjantasker.entity.Users;
 import com.shraddha.ranjantasker.services.TaskPostService;
@@ -7,6 +9,7 @@ import com.shraddha.ranjantasker.services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.Date;
+import java.util.List;
 
 @Controller
 public class TaskPostController {
@@ -34,6 +38,11 @@ public class TaskPostController {
         if (!(authentication instanceof AnonymousAuthenticationToken)){
             String currentUsername = authentication.getName();
             model.addAttribute("username", currentUsername);
+            if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("Requester"))){
+                List<RequesterTasksDto> requesterTasks = taskPostService.getRequesterTasks(((RequesterAccount) currentUserProfile).getUserAccountId());
+                model.addAttribute("taskPost", requesterTasks);
+
+            }
         }
         model.addAttribute("user", currentUserProfile);
         return "dashboard";
