@@ -36,4 +36,8 @@ public class TaskPostService {
         return requesterTasksDtoList;
 
     }
+
+    public TaskPost getOne(int id) {
+        return taskPostRepository.findById(id).orElseThrow(() -> new RuntimeException("Job not found"));
+    }
 }
