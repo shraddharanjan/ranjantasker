@@ -18,4 +18,8 @@ public class TaskSeekerAccountService {
     public Optional<TaskSeekerAccount> getOne(Integer id) {
         return taskSeekerAccountRepository.findById(id);
     }
+
+    public TaskSeekerAccount addNew(TaskSeekerAccount taskSeekerAccount) {
+        return taskSeekerAccountRepository.save(taskSeekerAccount);
+    }
 }
