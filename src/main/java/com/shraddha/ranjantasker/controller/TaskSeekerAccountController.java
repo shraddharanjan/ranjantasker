@@ -52,7 +52,7 @@ public class TaskSeekerAccountController {
         }
 
         @PostMapping("/addNew")
-    public String addNew(TaskSeekerAccount taskSeekerAccount, @RequestParam("image")MultipartFile image, @RequestParam("pdf") MultipartFile pdf, Model model) throws IOException {
+        public String addNew(TaskSeekerAccount taskSeekerAccount, @RequestParam("image")MultipartFile image, @RequestParam("pdf") MultipartFile pdf, Model model) throws IOException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
@@ -67,6 +67,11 @@ public class TaskSeekerAccountController {
 
         if (!Objects.equals(image.getOriginalFilename(), "")){
             imageName = StringUtils.cleanPath(Objects.requireNonNull(image.getOriginalFilename()));
+            taskSeekerAccount.setProfilePhoto(imageName);
+        }
+
+        if (!Objects.equals(pdf.getOriginalFilename(), "")) {
+            cvName = StringUtils.cleanPath(Objects.requireNonNull(pdf.getOriginalFilename()));
             taskSeekerAccount.setCv(cvName);
         }
         taskSeekerAccountService.addNew(taskSeekerAccount);
