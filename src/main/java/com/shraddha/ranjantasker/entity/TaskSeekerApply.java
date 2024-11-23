@@ -52,7 +52,7 @@ public class TaskSeekerApply implements Serializable {
         return userId;
     }
 
-    public void setTaskSeekerAccount(TaskSeekerAccount userId) {
+    public void setUserId(TaskSeekerAccount userId) {
         this.userId = userId;
     }
 

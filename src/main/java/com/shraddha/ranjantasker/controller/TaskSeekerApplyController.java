@@ -11,8 +11,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class TaskSeekerApplyController {
@@ -76,6 +79,27 @@ public class TaskSeekerApplyController {
         model.addAttribute("taskDetails", taskDetails);
         model.addAttribute("user", usersService.getCurrentUserProfile());
         return "task-details";
+    }
+
+    @PostMapping("task-details/apply/{id}")
+    public String apply(@PathVariable("id") int id, TaskSeekerApply taskSeekerApply) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUsername = authentication.getName();
+            Users user = usersService.findByEmail(currentUsername);
+            Optional<TaskSeekerAccount> seekerAccount = taskSeekerAccountService.getOne(user.getUserId());
+            TaskPost taskPost = taskPostService.getOne(id);
+            if (seekerAccount.isPresent() && taskPost != null) {
+                taskSeekerApply = new TaskSeekerApply();
+                taskSeekerApply.setUserId(seekerAccount.get());
+                taskSeekerApply.setTask(taskPost);
+                taskSeekerApply.setApplyDate(new Date());
+            } else {
+                throw new RuntimeException("User not found");
+            }
+            taskSeekerApplyService.addNew(taskSeekerApply);
+        }
+        return "redirect:/dashboard/";
     }
 
 }
