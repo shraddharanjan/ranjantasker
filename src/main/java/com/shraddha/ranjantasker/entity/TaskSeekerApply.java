@@ -48,7 +48,7 @@ public class TaskSeekerApply implements Serializable {
         this.id = id;
     }
 
-    public TaskSeekerAccount getTaskSeekerAccount() {
+    public TaskSeekerAccount getUserId() {
         return userId;
     }
 
