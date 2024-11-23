@@ -16,7 +16,7 @@ public class TaskSeekerApply implements Serializable {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "userId", referencedColumnName = "user_account_id")
-    private TaskSeekerAccount taskSeekerAccount;
+    private TaskSeekerAccount userId;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "task", referencedColumnName = "taskPostId")
@@ -32,9 +32,9 @@ public class TaskSeekerApply implements Serializable {
 
     }
 
-    public TaskSeekerApply(Integer id, TaskSeekerAccount taskSeekerAccount, TaskPost task, Date applyDate, String coverLetter) {
+    public TaskSeekerApply(Integer id, TaskSeekerAccount userId, TaskPost task, Date applyDate, String coverLetter) {
         this.id = id;
-        this.taskSeekerAccount = taskSeekerAccount;
+        this.userId = userId;
         this.task = task;
         this.applyDate = applyDate;
         this.coverLetter = coverLetter;
@@ -49,11 +49,11 @@ public class TaskSeekerApply implements Serializable {
     }
 
     public TaskSeekerAccount getTaskSeekerAccount() {
-        return taskSeekerAccount;
+        return userId;
     }
 
-    public void setTaskSeekerAccount(TaskSeekerAccount taskSeekerAccount) {
-        this.taskSeekerAccount = taskSeekerAccount;
+    public void setTaskSeekerAccount(TaskSeekerAccount userId) {
+        this.userId = userId;
     }
 
     public TaskPost getTask() {

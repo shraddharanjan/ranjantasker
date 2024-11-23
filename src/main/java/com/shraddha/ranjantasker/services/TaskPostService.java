@@ -8,8 +8,10 @@ import com.shraddha.ranjantasker.repository.TaskPostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class TaskPostService {
@@ -39,5 +41,15 @@ public class TaskPostService {
 
     public TaskPost getOne(int id) {
         return taskPostRepository.findById(id).orElseThrow(() -> new RuntimeException("Job not found"));
+    }
+
+    public List<TaskPost> getAll() {
+        return taskPostRepository.findAll();
+    }
+
+    public List<TaskPost> search(String task, String location, List<String> type, List<String> remote, LocalDate searchDate) {
+        return Objects.isNull(searchDate) ? taskPostRepository.searchWithoutDate(task, location, remote, type)
+                : taskPostRepository.search(task, location, remote, type, searchDate);
+
     }
 }
