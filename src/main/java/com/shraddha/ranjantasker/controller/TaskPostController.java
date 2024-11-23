@@ -3,6 +3,7 @@ package com.shraddha.ranjantasker.controller;
 import com.shraddha.ranjantasker.entity.*;
 import com.shraddha.ranjantasker.services.TaskPostService;
 import com.shraddha.ranjantasker.services.TaskSeekerApplyService;
+import com.shraddha.ranjantasker.services.TaskSeekerSaveService;
 import com.shraddha.ranjantasker.services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -29,13 +30,15 @@ public class TaskPostController {
     private final UsersService usersService;
     private final TaskPostService taskPostService;
     private final TaskSeekerApplyService taskSeekerApplyService;
+    private final TaskSeekerSaveService taskSeekerSaveService;
 
 
     @Autowired
-    public TaskPostController(UsersService usersService, TaskPostService taskPostService, TaskSeekerApplyService taskSeekerApplyService) {
+    public TaskPostController(UsersService usersService, TaskPostService taskPostService, TaskSeekerApplyService taskSeekerApplyService, TaskSeekerSaveService taskSeekerSaveService) {
         this.usersService = usersService;
         this.taskPostService = taskPostService;
         this.taskSeekerApplyService = taskSeekerApplyService;
+        this.taskSeekerSaveService = taskSeekerSaveService;
     }
 
     @GetMapping("/dashboard/")
@@ -108,6 +111,36 @@ public class TaskPostController {
                 model.addAttribute("taskPost", requesterTasks);
             } else {
                 List<TaskSeekerApply> taskSeekerApplyList = taskSeekerApplyService.getCandidatesTasks((TaskSeekerAccount) currentUserProfile);
+                List<TaskSeekerSave> taskSeekerSaveList = taskSeekerSaveService.getCandidatesTask((TaskSeekerAccount) currentUserProfile);
+                boolean exist;
+                boolean saved;
+
+                for (TaskPost taskActivity : taskPost) {
+                    exist = false;
+                    saved = false;
+                    for (TaskSeekerApply taskSeekerApply : taskSeekerApplyList) {
+                        if (Objects.equals(taskActivity.getTaskPostId(), taskSeekerApply.getTask().getTaskPostId())){
+                            taskActivity.setIsActive(true);
+                            exist = true;
+                            break;
+                        }
+                    }
+                    for (TaskSeekerSave taskSeekerSave : taskSeekerSaveList) {
+                        if (Objects.equals(taskActivity.getTaskPostId(), taskSeekerSave.getTask().getTaskPostId())){
+                            taskActivity.setIsSaved(true);
+                            saved=true;
+                            break;
+                        }
+                    }
+
+                    if (!exist){
+                        taskActivity.setIsActive(false);
+                    }
+                    if (!saved){
+                        taskActivity.setIsSaved(false);
+                    }
+                    model.addAttribute("taskPost", taskPost);
+                }
             }
         }
         model.addAttribute("user", currentUserProfile);

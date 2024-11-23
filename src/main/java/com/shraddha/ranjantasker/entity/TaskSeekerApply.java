@@ -84,7 +84,7 @@ public class TaskSeekerApply implements Serializable {
     public String toString() {
         return "TaskSeekerApply{" +
                 "id=" + id +
-                ", taskSeekerAccount=" + taskSeekerAccount +
+                ", taskSeekerAccount=" + userId +
                 ", task=" + task +
                 ", applyDate=" + applyDate +
                 ", coverLetter='" + coverLetter + '\'' +
