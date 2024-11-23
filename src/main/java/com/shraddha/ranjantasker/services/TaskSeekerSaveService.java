@@ -24,4 +24,8 @@ public class TaskSeekerSaveService {
     public List<TaskSeekerSave> getTaskCandidates(TaskPost task) {
         return taskSeekerSaveRepository.findByTask(task);
     }
+
+    public void addNew(TaskSeekerSave taskSeekerSave) {
+        taskSeekerSaveRepository.save(taskSeekerSave);
+    }
 }

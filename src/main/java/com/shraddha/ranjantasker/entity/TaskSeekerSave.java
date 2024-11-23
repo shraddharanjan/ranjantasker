@@ -61,4 +61,5 @@ public class TaskSeekerSave implements Serializable {
                 ", task=" + task.toString() +
                 '}';
     }
+
 }
