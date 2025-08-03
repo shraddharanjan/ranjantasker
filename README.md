@@ -36,5 +36,5 @@ RanjanTasker is a **full-stack web application** inspired by AirTasker and JobPo
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/ranjantasker.git
+git clone https://github.com/shraddharanjan/ranjantasker.git
 cd ranjantasker
