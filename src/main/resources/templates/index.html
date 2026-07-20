@@ -1,55 +1,285 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>RanjanTasker</title>
-    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css} "/>
-    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/font-awesome.min.css}"/>
-    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/styles.css}"/>
-    <meta charset="ISO-8859-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>RanjanTasker | Find Local Help</title>
+
+    <link
+        rel="stylesheet"
+        href="/webjars/bootstrap/css/bootstrap.min.css"
+        th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"
+    >
+
+    <link
+        rel="stylesheet"
+        href="/css/styles.css"
+        th:href="@{/css/styles.css}"
+    >
+
+    <link
+        rel="stylesheet"
+        href="/css/home.css"
+        th:href="@{/css/home.css}"
+    >
 </head>
-<body class="background">
-<nav class="main_div">
-    <div class="logo_left">
-            <img src="/assets/logo.png" />
-    </div>
-    <div class="logo_right">
-        <label class="Candidate_login_btn">
-            <a th:href="@{/login}">
-                Poster Login
-            </a>
-            <a th:href="@{/register}">
-                /Register
-            </a>
-        </label>
-        <label class="Recruiter_login_btn">
-            <a th:href="@{/login}">
-                 Tasker Login
-            </a>
-            <a th:href="@{/register}">
-                /Register
+
+<body class="home-page">
+
+<header class="home-header">
+    <nav class="home-nav" aria-label="Main navigation">
+
+        <a class="home-logo" th:href="@{/}">
+            <img
+                th:src="@{/assets/logo.png}"
+                alt="RanjanTasker logo"
+            >
+        </a>
+
+        <div class="home-nav-actions">
+
+            <a
+                class="home-nav-link"
+                th:href="@{/login}"
+            >
+                Log in
             </a>
 
-        </label>
-    </div>
-</nav>
-<form th:action="@{/global-search/}">
-    <div class="searchBox">
-        <div class="inner">
+            <a
+                class="home-button home-button-secondary"
+                th:href="@{/register}"
+            >
+                Become a Tasker
+            </a>
 
-            <input type="text" placeholder="Search for a task" name="job" th:value="${job}"/>
-            <input type="text" placeholder="Enter a location" name="location" th:value="${location}"/>
-            <button type="submit"><i class="fas fa-search"></i></button>
+            <a
+                class="home-button home-button-primary"
+                th:href="@{/register}"
+            >
+                Post a Task
+            </a>
 
         </div>
-    </div>
-</form>
-<footer>
-    <label class="copy-right">Copyright © ranjantasker.com</label>
+    </nav>
+</header>
+
+<main>
+
+    <section class="home-hero">
+
+        <div class="home-hero-content">
+
+            <span class="home-eyebrow">
+                Local help, when you need it
+            </span>
+
+            <h1>
+                Get everyday tasks
+                <span>done with confidence.</span>
+            </h1>
+
+            <p class="home-description">
+                Find trusted people nearby for cleaning, deliveries,
+                home repairs, gardening and more.
+            </p>
+
+            <form
+                class="home-search"
+                th:action="@{/global-search/}"
+                method="get"
+            >
+
+                <div class="home-search-field">
+
+                    <span
+                        class="home-field-icon"
+                        aria-hidden="true"
+                    >
+                        ⌕
+                    </span>
+
+                    <div class="home-field-content">
+
+                        <label for="job">
+                            What do you need help with?
+                        </label>
+
+                        <input
+                            id="job"
+                            type="text"
+                            name="job"
+                            placeholder="For example: furniture assembly"
+                            th:value="${job}"
+                        >
+
+                    </div>
+                </div>
+
+                <div class="home-search-divider"></div>
+
+                <div class="home-search-field">
+
+                    <span
+                        class="home-field-icon"
+                        aria-hidden="true"
+                    >
+                        ⌖
+                    </span>
+
+                    <div class="home-field-content">
+
+                        <label for="location">
+                            Where?
+                        </label>
+
+                        <input
+                            id="location"
+                            type="text"
+                            name="location"
+                            placeholder="Enter a town or postcode"
+                            th:value="${location}"
+                        >
+
+                    </div>
+                </div>
+
+                <button
+                    class="home-search-button"
+                    type="submit"
+                >
+                    <span>Search tasks</span>
+                    <span aria-hidden="true">→</span>
+                </button>
+
+            </form>
+
+            <div class="home-features">
+
+                <div class="home-feature">
+                    <span class="home-feature-check">✓</span>
+                    <span>Free to browse</span>
+                </div>
+
+                <div class="home-feature">
+                    <span class="home-feature-check">✓</span>
+                    <span>Local taskers</span>
+                </div>
+
+                <div class="home-feature">
+                    <span class="home-feature-check">✓</span>
+                    <span>Simple and secure</span>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <section class="home-how-it-works">
+
+        <div class="home-section-heading">
+
+            <span class="home-eyebrow">
+                How it works
+            </span>
+
+            <h2>
+                Help is only a few steps away
+            </h2>
+
+        </div>
+
+        <div class="home-steps">
+
+            <article class="home-step-card">
+
+                <span class="home-step-number">
+                    01
+                </span>
+
+                <div class="home-step-icon">
+                    ✎
+                </div>
+
+                <h3>
+                    Describe your task
+                </h3>
+
+                <p>
+                    Tell taskers what you need, where you need it and
+                    when it needs to be completed.
+                </p>
+
+            </article>
+
+            <article class="home-step-card">
+
+                <span class="home-step-number">
+                    02
+                </span>
+
+                <div class="home-step-icon">
+                    ☷
+                </div>
+
+                <h3>
+                    Browse taskers
+                </h3>
+
+                <p>
+                    Find people with the skills and availability needed
+                    to complete your task.
+                </p>
+
+            </article>
+
+            <article class="home-step-card">
+
+                <span class="home-step-number">
+                    03
+                </span>
+
+                <div class="home-step-icon">
+                    ✓
+                </div>
+
+                <h3>
+                    Get it done
+                </h3>
+
+                <p>
+                    Select the right person and get your task completed
+                    without the usual hassle.
+                </p>
+
+            </article>
+
+        </div>
+    </section>
+
+</main>
+
+<footer class="home-footer">
+    <p>
+        Made by Shraddha
+    </p>
 </footer>
+
+<script
+    type="text/javascript"
+    th:src="@{/webjars/jquery/jquery.min.js}">
+</script>
+
+<script
+    type="text/javascript"
+    th:src="@{/webjars/bootstrap/js/bootstrap.min.js}">
+</script>
+
+<script>
+    document.getElementById("current-year").textContent =
+        new Date().getFullYear();
+</script>
+
 </body>
-
-<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
-<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-
 </html>
