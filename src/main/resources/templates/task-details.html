@@ -475,60 +475,61 @@
             </article>
 
             <article
-                class="task-candidates-card"
-                sec:authorize="hasAuthority('Requester')"
+    class="task-candidates-card"
+    sec:authorize="hasAuthority('Requester')"
+>
+    <h2>Applicants</h2>
+
+    <p>
+        Review taskers who have applied for this task.
+    </p>
+
+    <div
+        class="task-candidates-list"
+        th:if="${applyList != null and !applyList.isEmpty()}"
+    >
+        <th:block
+            th:each="candidateApplication : ${applyList}"
+        >
+            <a
+                class="task-candidate-link"
+                th:if="${candidateApplication != null
+                    and candidateApplication.userId != null}"
+                th:href="@{/task-seeker-account/{id}(
+                    id=${candidateApplication.userId.userAccountId}
+                )}"
             >
-                <h2>Applicants</h2>
+                <span class="task-candidate-avatar">
+                    <i class="fas fa-user"></i>
+                </span>
 
-                <p>
-                    Review taskers who have applied for this task.
-                </p>
-
-                <div
-                    class="task-candidates-list"
-                    th:if="${applyList != null
-                        and !#lists.isEmpty(applyList)}"
+                <span
+                    th:if="${candidateApplication.userId.firstName != null
+                        and candidateApplication.userId.surname != null}"
+                    th:text="${candidateApplication.userId.firstName
+                        + ' '
+                        + candidateApplication.userId.surname}"
                 >
-                    <a
-                        class="task-candidate-link"
-                        th:each="application : ${applyList}"
-                        th:href="@{/task-seeker-account/{id}(id=${application.userId.userAccountId})}"
-                    >
-                        <span class="task-candidate-avatar">
-                            <i class="fas fa-user"></i>
-                        </span>
+                    Applicant
+                </span>
 
-                        <span
-                            th:if="${application.userId != null
-                                and application.userId.firstName != null
-                                and application.userId.surname != null}"
-                            th:text="${application.userId.firstName
-                                + ' '
-                                + application.userId.surname}"
-                        >
-                            Applicant
-                        </span>
-
-                        <span
-                            th:unless="${application.userId != null
-                                and application.userId.firstName != null
-                                and application.userId.surname != null}"
-                        >
-                            Tasker applicant
-                        </span>
-                    </a>
-                </div>
-
-                <div
-                    class="task-candidates-empty"
-                    th:if="${applyList == null
-                        or #lists.isEmpty(applyList)}"
+                <span
+                    th:unless="${candidateApplication.userId.firstName != null
+                        and candidateApplication.userId.surname != null}"
                 >
-                    No taskers have applied yet.
-                </div>
+                    Tasker applicant
+                </span>
+            </a>
+        </th:block>
+    </div>
 
-            </article>
-
+    <div
+        class="task-candidates-empty"
+        th:if="${applyList == null or applyList.isEmpty()}"
+    >
+        No taskers have applied yet.
+    </div>
+</article>
         </aside>
 
     </div>
