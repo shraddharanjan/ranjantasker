@@ -1,104 +1,336 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html
+    lang="en"
+    xmlns:th="http://www.thymeleaf.org"
+>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>Post a Task | RanjanTasker</title>
 
-    <link th:rel="stylesheet" type="text/css" media="all" th:href="@{/summernote/summernote-lite.min.css}"/>
-    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css} "/>
-    <link rel="stylesheet" type="text/css" media="all"  th:href="@{/css/font-awesome.min.css}" />
-    <link rel="stylesheet" type="text/css" media="all"  th:href="@{/css/style.css}" />
-    <link rel="stylesheet" type="text/css" media="all"  th:href="@{/css/styles.css}" />
-    <meta charset="ISO-8859-1">
-    <title>Profile Setup</title>
+    <link
+        rel="stylesheet"
+        th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"
+    >
+
+    <link
+        rel="stylesheet"
+        th:href="@{/summernote/summernote-lite.min.css}"
+    >
+
+    <link
+        rel="stylesheet"
+        th:href="@{/css/styles.css}"
+    >
+
+    <link
+        rel="stylesheet"
+        th:href="@{/css/add-task.css}"
+    >
 </head>
 
-<body>
+<body class="task-form-page">
 
-<div style="display: flex">
-    <div class="col-md-5 coffee_mug_background">
-        <div class="logo_left mt-3 pt-4 ms-5 pl-5">
-            <h2 class="logo" style="color: white">
-                RanjanTasker <span class="logo_com">.com</span>
-            </h2>
-        </div>
-    </div>
-    <div class="col-md-7 container myForm">
-        <form id="job-main-form" th:action="@{/dashboard/addNew}" th:object="${taskPost}" method="post" class="job-add-form">
-            <input hidden type="text" th:field="*{taskPostId}" >
-            <input hidden type="text" th:field="*{taskLocationId.Id}" >
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="d-flex justify-content-center pt-3">
-                        <h1 class="heading_font font-weight-bold">Post New Task</h1>
+<header class="task-form-header">
+    <nav class="task-form-nav">
+
+        <a class="task-form-brand" th:href="@{/dashboard/}">
+            <img
+                th:src="@{/assets/logo.png}"
+                alt="RanjanTasker logo"
+            >
+
+            <span>RanjanTasker</span>
+        </a>
+
+        <a class="task-form-back" th:href="@{/dashboard/}">
+            <span aria-hidden="true">←</span>
+            Back to dashboard
+        </a>
+
+    </nav>
+</header>
+
+<main class="task-form-shell">
+
+    <aside class="task-form-intro">
+
+        <span class="task-form-eyebrow">
+            Create a listing
+        </span>
+
+        <h1>
+            Post a new task
+        </h1>
+
+        <p>
+            Add clear details so taskers understand exactly what you need
+            and can decide whether they are the right fit.
+        </p>
+
+        <ul class="task-form-tips">
+
+            <li class="task-form-tip">
+                <span class="task-form-tip-icon">✓</span>
+                Use a short, descriptive title.
+            </li>
+
+            <li class="task-form-tip">
+                <span class="task-form-tip-icon">✓</span>
+                Include the expected outcome and requirements.
+            </li>
+
+            <li class="task-form-tip">
+                <span class="task-form-tip-icon">✓</span>
+                Add an accurate location and budget.
+            </li>
+
+        </ul>
+
+    </aside>
+
+    <section class="task-form-card">
+
+        <header class="task-form-card-header">
+            <h2>Task details</h2>
+
+            <p>
+                Complete the information below to publish your task.
+            </p>
+        </header>
+
+        <form
+            id="job-main-form"
+            class="task-form"
+            th:action="@{/dashboard/addNew}"
+            th:object="${taskPost}"
+            method="post"
+        >
+
+            <input
+                type="hidden"
+                th:field="*{taskPostId}"
+            >
+
+            <input
+                type="hidden"
+                th:field="*{taskLocationId.Id}"
+            >
+
+            <section class="task-form-section">
+
+                <h3 class="task-form-section-title">
+                    <span class="task-form-section-number">1</span>
+                    Basic information
+                </h3>
+
+                <div class="task-form-grid">
+
+                    <div class="task-form-field task-form-field-full">
+                        <label for="title">
+                            Task title
+                        </label>
+
+                        <input
+                            id="title"
+                            class="task-form-input"
+                            type="text"
+                            th:field="*{taskTitle}"
+                            placeholder="For example: Assemble a wardrobe"
+                            required
+                        >
                     </div>
+
                 </div>
-            </div>
-            <label class="heading_font font_sub_heading_color">Task Details</label>
-            <div class="row" >
-                <div class="col-lg-12 form-group">
-                    <input id="title" type="text" th:field="*{taskTitle}" class="form-control" placeholder="Task Title">
+
+                <div class="task-form-grid task-form-grid-three">
+
+                    <div class="task-form-field">
+                        <label for="type">
+                            Task type
+                        </label>
+
+                        <select
+                            id="type"
+                            class="task-form-select"
+                            th:field="*{taskType}"
+                            required
+                        >
+                            <option value="">
+                                Select a task type
+                            </option>
+
+                            <option value="Full-time">
+                                Full-time
+                            </option>
+
+                            <option value="Part-time">
+                                Part-time
+                            </option>
+
+                            <option value="Freelance">
+                                Freelance
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="task-form-field">
+                        <label for="remote">
+                            Work arrangement
+                        </label>
+
+                        <select
+                            id="remote"
+                            class="task-form-select"
+                            th:field="*{remote}"
+                            required
+                        >
+                            <option value="">
+                                Select an arrangement
+                            </option>
+
+                            <option value="Remote-Only">
+                                Remote only
+                            </option>
+
+                            <option value="Office-Only">
+                                On-site only
+                            </option>
+
+                            <option value="Partial-Remote">
+                                Hybrid
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="task-form-field">
+                        <label for="price">
+                            Budget
+                        </label>
+
+                        <div class="task-form-price">
+                            <input
+                                id="price"
+                                class="task-form-input"
+                                type="number"
+                                min="0"
+                                step="0.01"
+                                th:field="*{price}"
+                                placeholder="0.00"
+                                required
+                            >
+                        </div>
+                    </div>
+
                 </div>
+
+            </section>
+
+            <section class="task-form-section">
+
+                <h3 class="task-form-section-title">
+                    <span class="task-form-section-number">2</span>
+                    Description
+                </h3>
+
+                <div class="task-form-field task-form-editor">
+                    <label for="content">
+                        What needs to be done?
+                    </label>
+
+                    <textarea
+                        id="content"
+                        th:field="*{taskDescription}"
+                        autocomplete="off"
+                    ></textarea>
+                </div>
+
+            </section>
+
+            <section class="task-form-section">
+
+                <h3 class="task-form-section-title">
+                    <span class="task-form-section-number">3</span>
+                    Location
+                </h3>
+
+                <div class="task-form-grid">
+
+                    <div class="task-form-field">
+                        <label for="city">
+                            City
+                        </label>
+
+                        <input
+                            id="city"
+                            class="task-form-input"
+                            type="text"
+                            th:field="*{taskLocationId.city}"
+                            placeholder="For example: London"
+                            required
+                        >
+                    </div>
+
+                    <div class="task-form-field">
+                        <label for="country">
+                            Country
+                        </label>
+
+                        <input
+                            id="country"
+                            class="task-form-input"
+                            type="text"
+                            th:field="*{taskLocationId.country}"
+                            placeholder="For example: United Kingdom"
+                            required
+                        >
+                    </div>
+
+                </div>
+
+            </section>
+
+            <div class="task-form-actions">
+
+                <a
+                    class="task-form-cancel"
+                    th:href="@{/dashboard/}"
+                >
+                    Cancel
+                </a>
+
+                <button
+                    class="task-form-submit"
+                    type="submit"
+                    name="submit"
+                >
+                    Post task
+                </button>
+
             </div>
 
-            <div class="row">
-                <div class="col-md-4 form-group">
-                    <select id="type" th:field="*{taskType}" class="form-control">
-                        <option value="" >Employment Type</option>
-                        <option th:value="Full-time" >Full-time</option>
-                        <option th:value="Part-time" >Part-time</option>
-                        <option th:value="Freelance" >Freelance</option>
-                    </select>
-                </div>
-                <div class="col-md-4 form-group">
-                    <select id="remote" th:field="*{remote}" class="form-control">
-                        <option value="">Select a Remote</option>
-                        <option th:value="Remote-Only">Remote-Only</option>
-                        <option th:value="Office-Only">Office-Only</option>
-                        <option th:value="Partial-Remote"> Partial-Remote</option>
-                    </select>
-                </div>
-                <div class="col-md-4 form-group">
-                    <input id="price" th:field="*{price}" type="text" class="form-control" placeholder="Price">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12 form-group">
-                    <label class="mt-2 heading_font font_sub_heading_color">Description</label>
-                    <textarea type="text" rows="4" id="content" placeholder="Content" class="form-control"
-                              th:field="*{taskDescription}" autocomplete="off"></textarea>
-                </div>
-            </div>
-
-            <label class="mt-2 heading_font font_sub_heading_color">Location</label>
-            <div class="row" >
-                <div class="col-md-4 form-group">
-                    <input th:field="*{taskLocationId.city}" id="city" type="text"  class="form-control" placeholder="City">
-                </div>
-                <div class="col-md-4 form-group">
-                    <input id="country" th:field="*{taskLocationId.country}" type="text"  class="form-control" placeholder="Country">
-                </div>
-            </div>
-
-            <div class="row mt-4" >
-                <div class="col d-flex justify-content-center">
-                    <button type="submit" name="submit" class="btn btn-primary base_button px-4 py-2 mb-5">Save</button>
-                </div>
-            </div>
         </form>
 
-    </div>
-</div>
+    </section>
 
-<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
-<script type="text/javascript" th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
-<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-<script type="text/javascript" th:src="@{/summernote/summernote-lite.min.js}"></script>
-<script type="text/javascript" th:src="@{/js/main.js}"></script>
+</main>
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/summernote/summernote-lite.min.js}"></script>
 
 <script>
-console.log($('#content'));
-    $('#content').summernote({
-        height: 100
+    $("#content").summernote({
+        height: 180,
+        placeholder:
+            "Describe the task, what you expect and any important requirements.",
+        toolbar: [
+            ["style", ["bold", "italic", "underline"]],
+            ["para", ["ul", "ol", "paragraph"]],
+            ["insert", ["link"]],
+            ["view", ["fullscreen", "codeview"]]
+        ]
     });
 </script>
 

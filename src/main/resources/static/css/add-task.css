@@ -1,0 +1,507 @@
+:root {
+  --task-primary: #7551c8;
+  --task-primary-dark: #5c3ea6;
+  --task-primary-light: #9b7ddb;
+
+  --task-text: #332d3d;
+  --task-muted: #7c7488;
+  --task-border: #e8e2ef;
+  --task-surface: #ffffff;
+  --task-background: #f8f6fb;
+  --task-soft: #f2edf9;
+
+  --task-shadow: 0 18px 48px rgba(58, 42, 88, 0.1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+  margin: 0;
+}
+
+.task-form-page {
+  min-height: 100vh;
+  color: var(--task-text);
+  background: var(--task-background);
+  font-family:
+    "Segoe UI",
+    "Trebuchet MS",
+    Arial,
+    sans-serif;
+}
+
+/* Header */
+
+.task-form-header {
+  position: sticky;
+  z-index: 30;
+  top: 0;
+  color: #ffffff;
+  background:
+    linear-gradient(
+      135deg,
+      #372164 0%,
+      #5a3aa2 58%,
+      #7551c8 100%
+    );
+  box-shadow: 0 9px 26px rgba(45, 28, 76, 0.16);
+}
+
+.task-form-nav {
+  width: min(1180px, calc(100% - 40px));
+  min-height: 76px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.task-form-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.task-form-brand:hover {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.task-form-brand img {
+  width: 48px;
+  height: 48px;
+  padding: 3px;
+  border-radius: 12px;
+  object-fit: contain;
+  background: rgba(255, 255, 255, 0.96);
+}
+
+.task-form-back {
+  min-height: 40px;
+  padding: 0 16px;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 11px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.11);
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.task-form-back:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.18);
+  text-decoration: none;
+}
+
+/* Main layout */
+
+.task-form-shell {
+  width: min(1180px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 38px 0 70px;
+  display: grid;
+  grid-template-columns: 310px minmax(0, 1fr);
+  gap: 28px;
+}
+
+/* Left information card */
+
+.task-form-intro {
+  position: sticky;
+  top: 112px;
+  align-self: start;
+  padding: 30px;
+  border-radius: 22px;
+  overflow: hidden;
+  color: #ffffff;
+  background:
+    radial-gradient(
+      circle at 86% 12%,
+      rgba(255, 255, 255, 0.15),
+      transparent 34%
+    ),
+    linear-gradient(
+      145deg,
+      #432978 0%,
+      #7551c8 100%
+    );
+  box-shadow: 0 18px 44px rgba(78, 49, 128, 0.18);
+}
+
+.task-form-intro::after {
+  position: absolute;
+  right: -90px;
+  bottom: -90px;
+  width: 230px;
+  height: 230px;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 50%;
+  content: "";
+}
+
+.task-form-eyebrow {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 14px;
+  display: inline-block;
+  color: #e8dcfb;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.task-form-intro h1 {
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  font-size: 2.4rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.12;
+}
+
+.task-form-intro p {
+  position: relative;
+  z-index: 2;
+  margin: 18px 0 0;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.96rem;
+  line-height: 1.68;
+}
+
+.task-form-tips {
+  position: relative;
+  z-index: 2;
+  margin: 26px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 13px;
+  list-style: none;
+}
+
+.task-form-tip {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 0.89rem;
+  line-height: 1.5;
+}
+
+.task-form-tip-icon {
+  width: 24px;
+  height: 24px;
+  flex: 0 0 auto;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.11);
+  font-size: 0.7rem;
+}
+
+/* Form card */
+
+.task-form-card {
+  padding: 36px;
+  border: 1px solid var(--task-border);
+  border-radius: 24px;
+  background: var(--task-surface);
+  box-shadow: var(--task-shadow);
+}
+
+.task-form-card-header {
+  margin-bottom: 30px;
+}
+
+.task-form-card-header h2 {
+  margin: 0 0 9px;
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+.task-form-card-header p {
+  margin: 0;
+  color: var(--task-muted);
+  line-height: 1.65;
+}
+
+.task-form {
+  width: 100%;
+}
+
+.task-form-section {
+  margin-top: 30px;
+}
+
+.task-form-section:first-of-type {
+  margin-top: 0;
+}
+
+.task-form-section-title {
+  margin: 0 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--task-text);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.task-form-section-number {
+  width: 29px;
+  height: 29px;
+  border-radius: 9px;
+  display: grid;
+  place-items: center;
+  color: var(--task-primary);
+  background: var(--task-soft);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.task-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.task-form-grid-three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.task-form-field {
+  min-width: 0;
+}
+
+.task-form-field-full {
+  grid-column: 1 / -1;
+}
+
+.task-form-field label {
+  margin-bottom: 8px;
+  display: block;
+  color: var(--task-text);
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.task-form-input,
+.task-form-select {
+  width: 100%;
+  min-height: 54px;
+  padding: 0 15px;
+  border: 1px solid var(--task-border);
+  border-radius: 13px;
+  outline: none;
+  color: var(--task-text);
+  background: #fdfcff;
+  font-size: 0.96rem;
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease,
+    background-color 150ms ease;
+}
+
+.task-form-select {
+  appearance: none;
+  cursor: pointer;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--task-muted) 50%),
+    linear-gradient(135deg, var(--task-muted) 50%, transparent 50%);
+  background-position:
+    calc(100% - 19px) 23px,
+    calc(100% - 14px) 23px;
+  background-repeat: no-repeat;
+  background-size: 5px 5px;
+  padding-right: 42px;
+}
+
+.task-form-input:focus,
+.task-form-select:focus {
+  border-color: var(--task-primary-light);
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(117, 81, 200, 0.1);
+}
+
+.task-form-input::placeholder {
+  color: #a69fac;
+}
+
+.task-form-price {
+  position: relative;
+}
+
+.task-form-price::before {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 15px;
+  color: var(--task-muted);
+  content: "£";
+  transform: translateY(-50%);
+}
+
+.task-form-price .task-form-input {
+  padding-left: 31px;
+}
+
+/* Summernote */
+
+.task-form-editor .note-editor {
+  margin: 0;
+  border: 1px solid var(--task-border) !important;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.task-form-editor .note-toolbar {
+  padding: 8px !important;
+  border-bottom: 1px solid var(--task-border) !important;
+  background: #f8f5fc !important;
+}
+
+.task-form-editor .note-btn {
+  border-color: var(--task-border) !important;
+  color: var(--task-text) !important;
+  background: #ffffff !important;
+}
+
+.task-form-editor .note-editable {
+  min-height: 180px;
+  padding: 16px !important;
+  color: var(--task-text);
+  background: #ffffff;
+  font-family:
+    "Segoe UI",
+    "Trebuchet MS",
+    Arial,
+    sans-serif;
+  font-size: 0.96rem;
+  line-height: 1.65;
+}
+
+.task-form-actions {
+  margin-top: 34px;
+  padding-top: 24px;
+  border-top: 1px solid var(--task-border);
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.task-form-cancel {
+  min-height: 48px;
+  padding: 0 20px;
+  border: 1px solid var(--task-border);
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--task-muted);
+  background: #ffffff;
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.task-form-cancel:hover {
+  color: var(--task-primary);
+  border-color: #cbb9ec;
+  text-decoration: none;
+}
+
+.task-form-submit {
+  min-width: 150px;
+  min-height: 48px;
+  padding: 0 22px;
+  border: 0;
+  border-radius: 12px;
+  color: #ffffff;
+  background:
+    linear-gradient(
+      135deg,
+      var(--task-primary-light),
+      var(--task-primary)
+    );
+  box-shadow: 0 11px 26px rgba(117, 81, 200, 0.23);
+  font-size: 0.94rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    transform 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.task-form-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 31px rgba(117, 81, 200, 0.3);
+}
+
+@media (max-width: 900px) {
+  .task-form-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .task-form-intro {
+    position: relative;
+    top: auto;
+  }
+
+  .task-form-grid-three {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 620px) {
+  .task-form-nav,
+  .task-form-shell {
+    width: min(100% - 24px, 1180px);
+  }
+
+  .task-form-brand span {
+    display: none;
+  }
+
+  .task-form-shell {
+    padding-top: 24px;
+  }
+
+  .task-form-intro {
+    padding: 26px 22px;
+  }
+
+  .task-form-card {
+    padding: 26px 18px;
+    border-radius: 20px;
+  }
+
+  .task-form-grid,
+  .task-form-grid-three {
+    grid-template-columns: 1fr;
+  }
+
+  .task-form-actions {
+    flex-direction: column-reverse;
+  }
+
+  .task-form-cancel,
+  .task-form-submit {
+    width: 100%;
+  }
+}
