@@ -18,7 +18,6 @@ target/
 *.iws
 *.iml
 *.ipr
-**/application.properties
 
 
 ### NetBeans ###
@@ -34,3 +33,6 @@ build/
 ### VS Code ###
 .vscode/
 photos/
+.env
+*.log
+ranjantasker-backup.sql
