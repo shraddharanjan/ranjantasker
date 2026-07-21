@@ -1,249 +1,465 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org/" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html
+    lang="en"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Tasker Profile | RanjanTasker</title>
+
     <link
-            th:rel="stylesheet"
-            th:href="@{/webjars/bootstrap/css/bootstrap.min.css} "
-    />
+        rel="stylesheet"
+        th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"
+    >
+
     <link
-            rel="stylesheet"
-            type="text/css"
-            media="all"
-            th:href="@{/css/font-awesome.min.css}"
-    />
+        rel="stylesheet"
+        th:href="@{/css/styles.css}"
+    >
+
     <link
-            rel="stylesheet"
-            type="text/css"
-            media="all"
-            th:href="@{/css/styles.css}"
-    />
-    <link
-            href="https://fonts.googleapis.com/css?family=Montserrat"
-            rel="stylesheet"
-    />
-    <meta charset="ISO-8859-1"/>
-    <title>Profile Setup</title>
+        rel="stylesheet"
+        th:href="@{/css/account.css}"
+    >
 </head>
 
-<body>
-<div class="row" style="margin-right:0; ">
-    <div class="col-5 coffee_mug_background">
-        <div class="logo_left mt-3 pt-4 ms-5 pl-5">
-            <h2 class="logo" style="color: white">
-                ranjantasker <span class="logo_com">.com</span>
-            </h2>
-        </div>
-    </div>
-    <div class="col-7">
-        <div class="myForm">
-            <form
-                    th:action="@{/task-seeker-account/addNew}"
-                    th:object="${account}"
-                    method="post"
-                    enctype="multipart/form-data"
+<body class="account-page">
+
+<header class="account-header">
+    <nav class="account-nav">
+
+        <a class="account-brand" th:href="@{/dashboard/}">
+            <img
+                th:src="@{/assets/logo.png}"
+                alt="RanjanTasker logo"
             >
-                <div class="row" style="margin-right:0; margin-left:0;">
-                    <div class="col-md-12">
-                        <div class="d-flex justify-content-center pt-3">
-                            <h1 class="heading_font font-weight-bold">Tasker</h1>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div>
-                            <h2 class="heading_font d-flex justify-content-center">
-                                Set up your Account
-                            </h2>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <label class="heading_font font_sub_heading_color">Name</label>
-                        <div class="row">
-                            <div class="col-md-6 pr-1">
-                                <input
 
-                                        id="user_account_id"
-                                        th:field="*{userAccountId}"
-                                        name="userAccountId"
-                                        type="text"
-                                        hidden
-                                />
-                                <input
-                                        placeholder="First Name"
-                                        id="firstName"
-                                        th:field="*{firstName}"
-                                        name="firstName"
-                                        type="text"
-                                        class="form-control"
-                                />
-                            </div>
-                            <div class="col-md-6 pl-1">
-                                <input
-                                        placeholder="Surname"
-                                        id="surname"
-                                        name="surname"
-                                        th:field="*{surname}"
-                                        type="text"
-                                        class="form-control"
-                                />
-                            </div>
-                        </div>
-                        <div class="row ">
-                            <div class="col-md-4 pr-1">
-                                <input
-                                        placeholder="City"
-                                        name="city"
-                                        th:field="*{city}"
-                                        type="text"
-                                        class="form-control"
-                                />
-                            </div>
-                            <div class="col-md-4 pl-1">
-                                <input
-                                        placeholder="Country"
-                                        name="country"
-                                        th:field="*{country}"
-                                        type="text"
-                                        class="form-control"
-                                />
-                            </div>
-                        </div>
-                            <div class="form-group col-md-6 pl-1">
-                                <select
-                                        required
-                                        class="form-control"
-                                        name="employmentType"
-                                        th:field="*{employmentType}"
-                                >
-                                    <option value="" selected>Seeking Employment</option>
-                                    <option value="Full-Time">Full-time</option>
-                                    <option value="Part-Time">Part-time</option>
-                                    <option value="Freelance">Freelance</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row mt-2">
-                            <div class="col-md-5 me-5" sec:authorize="hasAuthority('Task Seeker')">
-                                <label class="heading_font font_sub_heading_color">
-                                    Profile Photo</label
-                                >
-                                <input
-                                        type="file"
-                                        name="image"
-                                        class="form-control"
-                                        accept="image/png, image/jpeg"
-                                />
-                                <input type="text" name="profilePhoto" th:field="*{profilePhoto}" class="form-control"
-                                       hidden/>
+            <span>RanjanTasker</span>
+        </a>
 
-                            </div>
-                            <div class="col-md-5 me-5">
-                                <label class="heading_font font_sub_heading_color">
-                                    CV</label
-                                >
-                                <input
-                                        sec:authorize="hasAuthority('Task Seeker')"
-                                        type="file"
-                                        name="pdf"
-                                        class="form-control"
-                                        required="true"
-                                        accept="application/pdf"
-                                />
-                                <input type="text" name="cv" th:field="*{cv}" class="form-control" hidden/>
-                                <a sec:authorize="hasAuthority('Requester')"
-                                   th:href="@{|/task-seeker-account/downloadCv?fileName=${account.cv}&&userID=${account.userAccountId}|}">Download
-                                    CV</a>
-                            </div>
-                        </div>
+        <a class="account-back" th:href="@{/dashboard/}">
+            <span aria-hidden="true">←</span>
+            Back to dashboard
+        </a>
 
-                        <div class="row mt-3 col d-flex justify-content-center"
-                             sec:authorize="hasAuthority('Task Seeker')">
-                            <div class="text-right">
-                                <button
-                                        type="submit"
-                                        id="submit2"
-                                        name="submit"
-                                        class="btn btn-primary base_button px-4 py-2"
-                                >
-                                    Save
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-            </form>
+    </nav>
+</header>
+
+<main class="account-shell">
+
+    <aside class="account-intro">
+
+        <span class="account-eyebrow">
+            Tasker profile
+        </span>
+
+        <h1>
+            Show people what you can offer
+        </h1>
+
+        <p>
+            Complete your profile so posters can understand your experience,
+            location and availability.
+        </p>
+
+        <ul class="account-points">
+
+            <li class="account-point">
+                <span class="account-point-icon">✓</span>
+                Add accurate contact and location details.
+            </li>
+
+            <li class="account-point">
+                <span class="account-point-icon">✓</span>
+                Choose the type of work you are seeking.
+            </li>
+
+            <li class="account-point">
+                <span class="account-point-icon">✓</span>
+                Upload a clear photo and an up-to-date CV.
+            </li>
+
+        </ul>
+
+    </aside>
+
+    <section class="account-card">
+
+        <header class="account-card-header">
+            <h2>Set up your tasker profile</h2>
+
+            <p>
+                You can return and update these details whenever needed.
+            </p>
+        </header>
+
+        <div
+            class="account-read-only-note"
+            sec:authorize="hasAuthority('Requester')"
+        >
+            You are viewing this tasker profile. Profile fields are read-only,
+            but you can download the attached CV.
         </div>
-    </div>
-</div>
-<div sec:authorize="hasAuthority('Recruiter')">
 
-</div>
-</body>
-<script
-        type="text/javascript"
-        th:src="@{/webjars/jquery/jquery.min.js}"
-></script>
-<script
-        type="text/javascript"
-        th:src="@{/webjars/popper.js/umd/popper.min.js}"
-></script>
-<script
-        type="text/javascript"
-        th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"
-></script>
-<script type="text/javascript" th:src="@{/js/main.js}"></script>
-<script sec:authorize="hasAuthority('Recruiter')">
-    console.log("Disable inputs");
-  $("input").prop( "disabled", true );
-   $("select").prop( "disabled", true );
-       $("button").prop( "disabled", true );
-</script>
+        <form
+            class="account-form"
+            th:action="@{/task-seeker-account/addNew}"
+            th:object="${account}"
+            method="post"
+            enctype="multipart/form-data"
+        >
+
+            <input
+                type="hidden"
+                th:field="*{userAccountId}"
+            >
+
+            <section class="account-section">
+
+                <h3 class="account-section-title">
+                    <span class="account-section-number">1</span>
+                    Personal information
+                </h3>
+
+                <div class="account-grid">
+
+                    <div class="account-field">
+                        <label for="firstName">
+                            First name
+                        </label>
+
+                        <input
+                            id="firstName"
+                            class="account-input"
+                            type="text"
+                            th:field="*{firstName}"
+                            placeholder="Enter your first name"
+                            autocomplete="given-name"
+                            required
+                        >
+                    </div>
+
+                    <div class="account-field">
+                        <label for="surname">
+                            Last name
+                        </label>
+
+                        <input
+                            id="surname"
+                            class="account-input"
+                            type="text"
+                            th:field="*{surname}"
+                            placeholder="Enter your last name"
+                            autocomplete="family-name"
+                            required
+                        >
+                    </div>
+
+                </div>
+
+            </section>
+
+            <section class="account-section">
+
+                <h3 class="account-section-title">
+                    <span class="account-section-number">2</span>
+                    Location and availability
+                </h3>
+
+                <div class="account-grid">
+
+                    <div class="account-field">
+                        <label for="city">
+                            City
+                        </label>
+
+                        <input
+                            id="city"
+                            class="account-input"
+                            type="text"
+                            th:field="*{city}"
+                            placeholder="For example: London"
+                            autocomplete="address-level2"
+                            required
+                        >
+                    </div>
+
+                    <div class="account-field">
+                        <label for="country">
+                            Country
+                        </label>
+
+                        <input
+                            id="country"
+                            class="account-input"
+                            type="text"
+                            th:field="*{country}"
+                            placeholder="For example: United Kingdom"
+                            autocomplete="country-name"
+                            required
+                        >
+                    </div>
+
+                    <div class="account-field">
+                        <label for="employmentType">
+                            Work preference
+                        </label>
+
+                        <select
+                            id="employmentType"
+                            class="account-input"
+                            th:field="*{employmentType}"
+                            required
+                        >
+                            <option value="">
+                                Select a work preference
+                            </option>
+
+                            <option value="Full-Time">
+                                Full-time
+                            </option>
+
+                            <option value="Part-Time">
+                                Part-time
+                            </option>
+
+                            <option value="Freelance">
+                                Freelance
+                            </option>
+                        </select>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <section class="account-section">
+
+                <h3 class="account-section-title">
+                    <span class="account-section-number">3</span>
+                    Documents and profile photo
+                </h3>
+
+                <div class="account-file-grid">
+
+                    <article class="account-file-card">
+                        <h4>Profile photo</h4>
+
+                        <p>
+                            Upload a PNG or JPEG image. A square photo works best.
+                        </p>
+
+                        <div class="account-photo-row">
+
+                            <div class="account-photo-preview">
+
+                                <img
+                                    id="photoPreview"
+                                    th:if="${account.profilePhoto != null
+                                        && !#strings.isEmpty(account.profilePhoto)}"
+                                    th:src="@{${account.profilePhoto}}"
+                                    alt="Current profile photo"
+                                >
+
+                                <span
+                                    id="photoPlaceholder"
+                                    th:unless="${account.profilePhoto != null
+                                        && !#strings.isEmpty(account.profilePhoto)}"
+                                    aria-hidden="true"
+                                >
+                                    ◉
+                                </span>
+
+                            </div>
+
+                            <div
+                                class="account-file-upload"
+                                sec:authorize="hasAuthority('Task Seeker')"
+                            >
+                                <input
+                                    id="image"
+                                    type="file"
+                                    name="image"
+                                    accept="image/png, image/jpeg"
+                                >
+
+                                <label
+                                    class="account-file-label"
+                                    for="image"
+                                >
+                                    <span aria-hidden="true">↑</span>
+                                    Choose photo
+                                </label>
+
+                                <p
+                                    class="account-file-name"
+                                    id="imageFileName"
+                                >
+                                    No image selected
+                                </p>
+                            </div>
+
+                        </div>
+
+                        <input
+                            type="hidden"
+                            th:field="*{profilePhoto}"
+                        >
+                    </article>
+
+                    <article class="account-file-card">
+                        <h4>Curriculum vitae</h4>
+
+                        <p>
+                            Upload your current CV as a PDF document.
+                        </p>
+
+                        <div
+                            class="account-file-upload"
+                            sec:authorize="hasAuthority('Task Seeker')"
+                        >
+                            <input
+                                id="pdf"
+                                type="file"
+                                name="pdf"
+                                accept="application/pdf"
+                                th:required="${account.cv == null
+                                    || #strings.isEmpty(account.cv)}"
+                            >
+
+                            <label
+                                class="account-file-label"
+                                for="pdf"
+                            >
+                                <span aria-hidden="true">↑</span>
+                                Choose PDF
+                            </label>
+
+                            <p
+                                class="account-file-name"
+                                id="pdfFileName"
+                            >
+                                No CV selected
+                            </p>
+                        </div>
+
+                        <a
+                            class="account-download"
+                            sec:authorize="hasAuthority('Requester')"
+                            th:if="${account.cv != null
+                                && !#strings.isEmpty(account.cv)}"
+                            th:href="@{|/task-seeker-account/downloadCv
+                                ?fileName=${account.cv}
+                                &userID=${account.userAccountId}|}"
+                        >
+                            <span aria-hidden="true">↓</span>
+                            Download CV
+                        </a>
+
+                        <input
+                            type="hidden"
+                            th:field="*{cv}"
+                        >
+                    </article>
+
+                </div>
+
+            </section>
+
+            <div
+                class="account-actions"
+                sec:authorize="hasAuthority('Task Seeker')"
+            >
+
+                <a
+                    class="account-cancel"
+                    th:href="@{/dashboard/}"
+                >
+                    Cancel
+                </a>
+
+                <button
+                    class="account-submit"
+                    type="submit"
+                    id="submit2"
+                    name="submit"
+                >
+                    Save profile
+                </button>
+
+            </div>
+
+        </form>
+
+    </section>
+
+</main>
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
 <script>
+    const imageInput = document.getElementById("image");
+    const pdfInput = document.getElementById("pdf");
+    const imageFileName = document.getElementById("imageFileName");
+    const pdfFileName = document.getElementById("pdfFileName");
+    const photoPlaceholder = document.getElementById("photoPlaceholder");
 
+    if (imageInput) {
+        imageInput.addEventListener("change", function (event) {
+            const file = event.target.files[0];
 
-    var counter = 0;
-     $(document).on("click", "#addSkill", function (e) {
-       e.preventDefault();
-       counter++;
-        var newRow = jQuery("<div id='skill-repeat'><div class='row'>"+
-                   "    <div class='col-md-4 pr-1'>"+
-                   "     <input"+
-                   "        hidden type='text'"+
-                   "        class='form-control' "+
-                   "        name='skills["+counter+"].Id'"+
-                   "      />"+
-                   "      <input"+
-                   "        placeholder='Skill Name'"+
-                   "        type='text'"+
-                   "        class='form-control'"+
-                   "        name='skills["+counter+"].name'"+
-                   "      />"+
-                   "    </div>"+
-                   "    <div class='col-md-4 px-1'>"+
-                   "      <input"+
-                   "        placeholder='Years of Experience'"+
-                   "        type='text'"+
-                   "        class='form-control'"+
-                   "        name='skills["+counter+"].yearsOfExperience'"+
-                   "      />"+
-                   "    </div>"+
-                   "    <div class='form-group col-md-4 pl-1'>"+
-                   "      <select"+
-                   "        required"+
-                   "        class='form-control'"+
-                   "        name='skills["+counter+"].experienceLevel'"+
-                   "      >"+
-                   "        <option selected>Experience Level</option>"+
-                   "        <option value='Beginner'>Beginner</option>"+
-                   "        <option value='Intermediate'>Intermediate</option>"+
-                   "        <option value='Advance'>Advance</option>"+
-                   "      </select>"+
-                   "    </div>"+
-                   "  </div>"+
-                   "</div>");
-        console.log(newRow);
-       $('#skill-repeat')
-         .parent('div.parent')
-         .append(newRow);
+            if (!file) {
+                return;
+            }
 
-     });
+            imageFileName.textContent = file.name;
+
+            let preview = document.getElementById("photoPreview");
+
+            if (!preview) {
+                preview = document.createElement("img");
+                preview.id = "photoPreview";
+                preview.alt = "Selected profile photograph";
+
+                document
+                    .querySelector(".account-photo-preview")
+                    .appendChild(preview);
+            }
+
+            preview.src = URL.createObjectURL(file);
+
+            if (photoPlaceholder) {
+                photoPlaceholder.style.display = "none";
+            }
+        });
+    }
+
+    if (pdfInput) {
+        pdfInput.addEventListener("change", function (event) {
+            const file = event.target.files[0];
+
+            if (file) {
+                pdfFileName.textContent = file.name;
+            }
+        });
+    }
 </script>
+
+<script sec:authorize="hasAuthority('Requester')">
+    document
+        .querySelectorAll(
+            ".account-form input:not([type='hidden']), " +
+            ".account-form select, " +
+            ".account-form button"
+        )
+        .forEach(function (field) {
+            field.disabled = true;
+        });
+</script>
+
+</body>
 </html>

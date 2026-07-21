@@ -1,88 +1,317 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css} "/>
-    <link rel="stylesheet" type="text/css" media="all"  th:href="@{/css/font-awesome.min.css}" />
-    <link rel="stylesheet" type="text/css" media="all"  th:href="@{/css/style.css}" />
-    <link rel="stylesheet" type="text/css" media="all"  th:href="@{/css/styles.css}" />
-   <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Profile Setup</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Poster Profile | RanjanTasker</title>
+
+    <link
+        rel="stylesheet"
+        th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"
+    >
+
+    <link
+        rel="stylesheet"
+        th:href="@{/css/styles.css}"
+    >
+
+    <link
+        rel="stylesheet"
+        th:href="@{/css/account.css}"
+    >
 </head>
 
-<body>
-<div class="row" style="margin-right:0">
-    <div class="col-5 coffee_mug_background">
-        <div class="logo_left mt-3 pt-4 ms-5 pl-5">
-            <h2 class="logo" style="color: white">RanjanTasker <span class="logo_com">.com</span></h2>
-        </div>
-    </div>
-    <div class=" col-7">
-        <div class="myForm">
-            <form th:action="@{/requester-account/addNew}" th:object="${account}" method="post" enctype="multipart/form-data"
+<body class="account-page">
+
+<header class="account-header">
+    <nav class="account-nav">
+
+        <a class="account-brand" th:href="@{/dashboard/}">
+            <img
+                th:src="@{/assets/logo.png}"
+                alt="RanjanTasker logo"
             >
-                <div class="row gutters ">
-                    <div class="row mt-5">
-                        <div class="col-md-12">
-                            <div class="d-flex justify-content-center ">
-                                <h1 class="heading_font font-weight-bold">
-                                    Poster
-                                </h1>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div >
-                                    <h2 class="d-flex justify-content-center heading_font">
-                                        Set up your Profile
-                                    </h2>
-                                </div>
-                            </div>
 
-                            <div class="card-body ms-2.5">
-                                <label class="heading_font font_sub_heading_color">Name</label>
-                                <div class="row ">
-                                    <div class="col-md-6 pr-1">
-                                        <input placeholder="First Name" id="firstName" th:field="*{firstName}"  name="firstName"  type="text" class="form-control"  />
-                                    </div>
-                                    <div class="col-md-6 pl-1">
-                                        <input placeholder="Last Name" id="surname" name="surname" th:field="*{surname}" type="text" class="form-control"  />
-                                    </div>
-                                </div>
-                                <div class="row " >
-                                    <div class="col-md-4 pr-1">
-                                        <input placeholder="City" name="city" th:field="*{city}" type="text" class="form-control"  />
-                                    </div>
-                                    <div class="col-md-4 pl-1">
-                                        <input placeholder="Country" name="country" th:field="*{country}" type="text" class="form-control"  />
-                                    </div>
-                                </div>
-                                </div>
-                                <label class="heading_font font_sub_heading_color mt-2">Profile Photo</label>
-                                <div class="row" >
+            <span>RanjanTasker</span>
+        </a>
 
-                                    <div class="col" >
-                                        <input type="file" name="image" class="form-control" accept="image/png, image/jpeg" />
-                                        <input type="text" name="profilePhoto" th:field="*{profilePhoto}" class="form-control" hidden />
-                                    </div>
-                                </div>
-                                <div class="row mt-4" >
-                                    <div class="col d-flex justify-content-center">
-                                        <button type="submit" id="submit2" name="submit" class="btn btn-primary base_button px-4 py-2">Save</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+        <a class="account-back" th:href="@{/dashboard/}">
+            <span aria-hidden="true">←</span>
+            Back to dashboard
+        </a>
+
+    </nav>
+</header>
+
+<main class="account-shell">
+
+    <aside class="account-intro">
+
+        <span class="account-eyebrow">
+            Poster profile
+        </span>
+
+        <h1>
+            Tell taskers a little about you
+        </h1>
+
+        <p>
+            Add your name, location and profile image so taskers know who
+            they will be working with.
+        </p>
+
+        <ul class="account-points">
+
+            <li class="account-point">
+                <span class="account-point-icon">✓</span>
+                Use your real name to build trust.
+            </li>
+
+            <li class="account-point">
+                <span class="account-point-icon">✓</span>
+                Add your usual task location.
+            </li>
+
+            <li class="account-point">
+                <span class="account-point-icon">✓</span>
+                Upload a clear, friendly profile picture.
+            </li>
+
+        </ul>
+
+    </aside>
+
+    <section class="account-card">
+
+        <header class="account-card-header">
+            <h2>Set up your profile</h2>
+
+            <p>
+                You can return and update these details at any time.
+            </p>
+        </header>
+
+        <form
+            class="account-form"
+            th:action="@{/requester-account/addNew}"
+            th:object="${account}"
+            method="post"
+            enctype="multipart/form-data"
+        >
+
+            <section class="account-section">
+
+                <h3 class="account-section-title">
+                    <span class="account-section-number">1</span>
+                    Personal information
+                </h3>
+
+                <div class="account-grid">
+
+                    <div class="account-field">
+                        <label for="firstName">
+                            First name
+                        </label>
+
+                        <input
+                            id="firstName"
+                            class="account-input"
+                            type="text"
+                            th:field="*{firstName}"
+                            placeholder="Enter your first name"
+                            autocomplete="given-name"
+                            required
+                        >
                     </div>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-</body>
-<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
-<script type="text/javascript" th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
-<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-<script type="text/javascript" th:src="@{/js/main.js}"></script>
 
+                    <div class="account-field">
+                        <label for="surname">
+                            Last name
+                        </label>
+
+                        <input
+                            id="surname"
+                            class="account-input"
+                            type="text"
+                            th:field="*{surname}"
+                            placeholder="Enter your last name"
+                            autocomplete="family-name"
+                            required
+                        >
+                    </div>
+
+                </div>
+
+            </section>
+
+            <section class="account-section">
+
+                <h3 class="account-section-title">
+                    <span class="account-section-number">2</span>
+                    Location
+                </h3>
+
+                <div class="account-grid">
+
+                    <div class="account-field">
+                        <label for="city">
+                            City
+                        </label>
+
+                        <input
+                            id="city"
+                            class="account-input"
+                            type="text"
+                            th:field="*{city}"
+                            placeholder="For example: London"
+                            autocomplete="address-level2"
+                            required
+                        >
+                    </div>
+
+                    <div class="account-field">
+                        <label for="country">
+                            Country
+                        </label>
+
+                        <input
+                            id="country"
+                            class="account-input"
+                            type="text"
+                            th:field="*{country}"
+                            placeholder="For example: United Kingdom"
+                            autocomplete="country-name"
+                            required
+                        >
+                    </div>
+
+                </div>
+
+            </section>
+
+            <section class="account-section">
+
+                <h3 class="account-section-title">
+                    <span class="account-section-number">3</span>
+                    Profile photo
+                </h3>
+
+                <div class="account-photo-row">
+
+                    <div class="account-photo-preview">
+
+                        <img
+                            id="photoPreview"
+                            th:if="${account.profilePhoto != null
+                                && !#strings.isEmpty(account.profilePhoto)}"
+                            th:src="@{${account.profilePhoto}}"
+                            alt="Current profile photo"
+                        >
+
+                        <span
+                            id="photoPlaceholder"
+                            th:unless="${account.profilePhoto != null
+                                && !#strings.isEmpty(account.profilePhoto)}"
+                            aria-hidden="true"
+                        >
+                            ◉
+                        </span>
+
+                    </div>
+
+                    <div class="account-upload">
+
+                        <input
+                            id="image"
+                            type="file"
+                            name="image"
+                            accept="image/png, image/jpeg"
+                        >
+
+                        <label
+                            class="account-upload-label"
+                            for="image"
+                        >
+                            <span aria-hidden="true">↑</span>
+                            Choose a profile image
+                        </label>
+
+                        <p class="account-upload-help">
+                            PNG or JPEG. A square image will look best.
+                        </p>
+
+                        <input
+                            type="hidden"
+                            th:field="*{profilePhoto}"
+                        >
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <div class="account-actions">
+
+                <a
+                    class="account-cancel"
+                    th:href="@{/dashboard/}"
+                >
+                    Cancel
+                </a>
+
+                <button
+                    class="account-submit"
+                    type="submit"
+                    id="submit2"
+                    name="submit"
+                >
+                    Save profile
+                </button>
+
+            </div>
+
+        </form>
+
+    </section>
+
+</main>
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+<script>
+    const imageInput = document.getElementById("image");
+    const photoPreview = document.getElementById("photoPreview");
+    const photoPlaceholder = document.getElementById("photoPlaceholder");
+
+    imageInput.addEventListener("change", function (event) {
+        const file = event.target.files[0];
+
+        if (!file) {
+            return;
+        }
+
+        const imageUrl = URL.createObjectURL(file);
+        let preview = photoPreview;
+
+        if (!preview) {
+            preview = document.createElement("img");
+            preview.id = "photoPreview";
+            preview.alt = "Selected profile photo";
+            document
+                .querySelector(".account-photo-preview")
+                .appendChild(preview);
+        }
+
+        preview.src = imageUrl;
+
+        if (photoPlaceholder) {
+            photoPlaceholder.style.display = "none";
+        }
+    });
+</script>
+
+</body>
 </html>
